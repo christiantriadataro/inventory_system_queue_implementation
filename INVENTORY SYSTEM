@@ -1,0 +1,338 @@
+//Author Christian T. Dataro
+
+
+
+#include <iostream>
+using namespace std;
+class ITEM{
+	private:
+		
+		int itemCode;
+		string itemName;
+		string category;
+		int noOfItem;
+		int price;
+		ITEM *next;
+		
+	public:
+		ITEM *front = NULL;
+		ITEM *rear = NULL;
+		ITEM *tmp;
+		
+		void search()
+		{	
+			int n;
+			int searchItemCode;
+			string searchItem;
+			int search_ID(0);
+			tmp = front;
+			
+			cout << "SEARCH: [1] ITEMCODE" << endl
+			     << "        [2] ITEMNAME" << endl
+			     << "        [3] CATEGORY" << endl;
+			  cin >> n;   
+			switch(n)
+			{
+				case 1:
+					system("CLS");
+					cout << "ITEMCODE: ";
+					cin >> searchItemCode;
+			
+					while(tmp != NULL)
+					{
+						if(tmp->itemCode == searchItemCode)
+						{
+							search_ID = 1;
+							break;
+						}
+						tmp = tmp->next;
+					};
+			
+					if(search_ID != 1)
+					{
+						cout << "ITEMCODE not found: " << endl;
+						system("pause");
+						break;
+					}
+					else
+					{
+						cout << "ITEMCODE: " << tmp->itemCode << endl
+							 << "ITEMNAME: " << tmp->itemName << endl
+							 << "NUMBER OF ITEM: " << tmp->noOfItem << endl
+							 << "CATEGORY: " << tmp->category << endl
+							 << "PRICE: " << tmp->price << endl;
+						tmp->next = tmp;
+					}
+					system("pause");
+					break;
+					
+					
+				case 2:
+					system("CLS");
+					cout << "ITEMNAME: ";
+					cin >> searchItem;
+			
+					while(tmp != NULL)
+					{
+						if(tmp->itemName == searchItem)
+						{
+							search_ID = 1;
+							break;
+						}
+						tmp = tmp->next;
+					};
+			
+					if(search_ID != 1)
+					{
+						cout << "ITEMNAME not found: "<< endl;
+						system("pause");
+						break;
+					}
+					else
+					{
+						cout << "ITEMCODE: " << tmp->itemCode << endl
+							 << "ITEMNAME: " << tmp->itemName << endl
+							 << "NUMBER OF ITEM: " << tmp->noOfItem << endl
+							 << "CATEGORY: " << tmp->category << endl
+							 << "PRICE: " << tmp->price << endl;
+						tmp->next = tmp;
+					}	
+					system("pause");
+					break;
+				
+				case 3:
+					system("CLS");
+					cout << "CATEGORY: ";
+					cin >> searchItem;
+					
+					while(tmp != NULL)
+					{
+						if(tmp->category == searchItem)
+						{
+							search_ID = 1;
+							break;
+						}
+						tmp = tmp->next;
+					};
+					if(search_ID != 1)
+					{
+						cout << "ITEMNAME not found: " << endl;
+						system("pause");
+						break;
+					}
+					else
+					{
+						cout << "ITEMCODE: " << tmp->itemCode << endl
+							 << "ITEMNAME: " << tmp->itemName << endl
+							 << "NUMBER OF ITEM: " << tmp->noOfItem << endl
+							 << "CATEGORY: " << tmp->category << endl
+							 << "PRICE: " << tmp->price << endl;
+						tmp->next = tmp;
+					}
+					system("pause");
+					break;	
+				search_ID = 0;
+			tmp = front;
+			system("pause");	
+									
+			}//switch to bobo
+
+			
+			
+			//choose from ITEMCODE, CATEGORY, Prices
+		}
+		
+		
+		void enqueue()
+		{
+			
+				
+				int newItemCode;
+				string newItemName;
+				string newCategory;
+				int newNoOfItem;
+				int newPrice;
+			
+				cout << "ITEM CODE: ";
+				cin >> newItemCode;
+				
+			
+				cout << "ITEM NAME: ";
+				cin >> newItemName;
+				
+			
+				cout << "CATEGORY: ";
+				cin >> newCategory;
+			
+			
+				cout << "NUMBER OF ITEM: ";
+				cin >> newNoOfItem;
+			
+			
+				cout << "PRICE: ";
+				cin >> newPrice;
+			
+			
+				if(rear == NULL)
+				{
+					rear = new ITEM;
+					
+					rear->itemCode = newItemCode;
+					rear->itemName = newItemName;
+					rear->category = newCategory;
+					rear->noOfItem = newNoOfItem;
+					rear->price = newPrice;
+				
+					rear->next = NULL;
+					front = rear;
+				}
+				else
+				{
+					tmp = new ITEM;
+					rear->next = tmp;
+					
+					tmp->itemCode = newItemCode;
+					tmp->itemName = newItemName;
+					tmp->category = newCategory;
+					tmp->noOfItem = newNoOfItem;
+					tmp->price = newPrice;
+				
+					tmp->next = NULL;
+				
+					rear = tmp;
+				}	
+			}
+		
+		void dequeue()
+		{
+			tmp = front;
+			if(front == NULL)
+			{
+				cout << "EMPTY" << endl;
+				system("pause");
+				return;
+			}
+			else
+			{
+				if(tmp->next != NULL)
+				{
+					tmp = tmp->next;
+					cout << "DELETED ITEMCODE: " << front->itemCode << endl
+					<< "ITEMNAME: " << front->itemName << endl
+					<< "CATEGORY: " << front->category << endl
+					<< "NUMBER OF ITEMS: " << front->noOfItem << endl
+					<< "PRICE: " << front->price << endl;
+					delete front;
+					front = tmp;		
+				}	
+				else
+				{
+					cout << "DELETED ITEMCODE: " << front->itemCode << endl
+					<< "ITEMNAME: " << front->itemName << endl
+					<< "CATEGORY: " << front->category << endl
+					<< "NUMBER OF ITEMS: " << front->noOfItem << endl
+					<< "PRICE: " << front->price << endl;	
+					delete front;
+					front = NULL;
+					rear = NULL;
+				}
+				system("pause");
+			}	
+		}
+		
+		void display()
+		{
+			tmp = front;
+			if((front == NULL) && (rear == NULL))
+			{
+				cout << "EMPTY" << endl;
+				system("pause");
+				return;
+			}
+			else
+			{
+				cout << "ITEMS : " << endl;
+				cout << "# of ITEMS:\tCATEGORY\tITEMCODE\tITEMNAME\tPRICE" << endl;
+				while(tmp != NULL)
+				{
+					cout << tmp->noOfItem << "\t\t" 
+					     << tmp->category << "\t\t" 
+					     << tmp->itemCode << "\t\t"
+					     << tmp->itemName << "\t\t"
+					     << tmp->price << endl;
+					     tmp = tmp->next;
+				}
+				cout << endl;
+			}
+			system("pause");
+		}
+		
+		void mainMenu()
+		{
+			
+			
+			int n;
+			do {
+					system("CLS");
+					cout << "INVENTORY SYSTEM" << endl
+					     << "[1] ENQUEUE" << endl	
+					     << "[2] DEQUEUE" << endl
+					     << "[3] DISPLAY" << endl
+					     << "[4] SEARCH" << endl
+					     << "[5] EXIT" << endl;
+					
+					cout << "Choice: ";
+					cin >> n;
+					switch(n)
+					{
+						case 1:
+							system("CLS");
+							enqueue();
+							break;
+						case 2:
+							system("CLS");
+							dequeue();
+							break;
+						case 3:
+							system("CLS");
+							display();
+							break;
+						case 4:
+							system("CLS");
+							search();
+							break;
+						
+					}
+			   }
+			   while(n != 5);
+		}
+};
+
+
+
+int main()
+{
+	ITEM i;
+	i.mainMenu();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Author Christian Dataro
